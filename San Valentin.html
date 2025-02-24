@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Cumpleaños</title>
+  <!-- Enlace de fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fuentes: Poppins para el texto y Great Vibes para los títulos -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffe4e1;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 2rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Fondo decorativo con emojis de cumpleaños */
+    .background-decor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .background-decor span {
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.15;
+      animation: moveEmoji 10s linear infinite;
+    }
+    @keyframes moveEmoji {
+      from { transform: translateY(0px); }
+      to { transform: translateY(100vh); }
+    }
+
+    header {
+      width: 100%;
+      text-align: center;
+      background-color: #ffb6c1;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    .hero {
+      margin-top: 2rem;
+      width: 90%;
+      max-width: 600px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      position: relative;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .hero .profile-pic {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ffb6c1;
+      margin-bottom: 1rem;
+    }
+
+    /* Banner especial de cumpleaños */
+    .birthday-banner {
+      background: #ffefef;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border: 2px dashed #ffb6c1;
+    }
+    .birthday-banner h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #e91e63;
+      margin-bottom: 0.5rem;
+    }
+    .birthday-banner p {
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .love-message {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+    .love-message p {
+      margin-bottom: 1rem;
+    }
+
+    /* REPRODUCTOR CON DISCO PEQUEÑO */
+    .small-record-player {
+      margin: 1rem auto;
+      text-align: center;
+    }
+
+    /* Contenedor del disco y corazones (pequeño) */
+    .record-container {
+      position: relative;
+      width: 120px; /* Ajusta el tamaño aquí */
+      height: 120px;
+      margin: 0 auto 1rem auto;
+    }
+
+    /* Disco */
+    .record {
+      width: 100px;  /* Disco más pequeño */
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ff7fa3 40%, #ff4181 60%);
+      margin: 0 auto;
+      position: absolute;
+      top: 10px; 
+      left: 10px;
+      animation: spin 4s linear infinite paused; /* Animación en pausa por defecto */
+    }
+    .record::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      background: #000;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Pequeña corona de corazones alrededor del disco */
+    .heart-ring {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      top: 0;
+      left: 0;
+      animation: spin 8s linear infinite; /* Giran lentamente */
+    }
+    .heart-ring span {
+      position: absolute;
+      font-size: 1.2rem; /* corazones más pequeños */
+      color: #ff4d6f;
+    }
+    /* 8 corazones distribuidos en distintos puntos */
+    .heart-ring span:nth-child(1) { top: 0;   left: 50%; transform: translateX(-50%); }
+    .heart-ring span:nth-child(2) { top: 20%; right: 0;  transform: translateY(-50%); }
+    .heart-ring span:nth-child(3) { top: 50%; right: 0;  transform: translateY(-50%); }
+    .heart-ring span:nth-child(4) { bottom: 20%; right: 0; transform: translateY(50%); }
+    .heart-ring span:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); }
+    .heart-ring span:nth-child(6) { bottom: 20%; left: 0; transform: translateY(50%); }
+    .heart-ring span:nth-child(7) { top: 50%; left: 0;   transform: translateY(-50%); }
+    .heart-ring span:nth-child(8) { top: 20%; left: 0;   transform: translateY(-50%); }
+
+    /* Botón de Play/Pause */
+    .btn-play {
+      display: inline-block;
+      background: #e91e63;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-play:hover {
+      background: #c2185b;
+    }
+
+    footer {
+      margin-top: auto;
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+      background-color: #ffb6c1;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    /* Corazones flotantes (animación) */
+    .heart {
+      position: fixed;
+      color: red;
+      font-size: 2rem;
+      animation: floatHearts 5s linear infinite;
+      z-index: 9999;
+    }
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10%) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo decorativo con emojis de cumpleaños -->
+  <div class="background-decor">
+    <span style="left:10%; top:-10%;">🎉</span>
+    <span style="left:50%; top:-20%;">🎂</span>
+    <span style="left:80%; top:-15%;">🎁</span>
+    <span style="left:30%; top:-5%;">🍰</span>
+    <span style="left:70%; top:-25%;">🥳</span>
+  </div>
+  
+  <header>
+    <h1>Joji</h1>
+  </header>
+  
+  <section class="hero">
+    <!-- Imagen de la pareja -->
+    <img src="Fotojoji.jpg" alt="Foto de la pareja" class="profile-pic">
+    <!-- Banner de cumpleaños -->
+    <div class="birthday-banner">
+      <h2>Happy 26th Birthday! 🎉</h2>
+      <p>26 Years of Joy & Love</p>
+    </div>
+    
+    <!-- REPRODUCTOR PEQUEÑO CON DISCO GIRATORIO -->
+    <div class="small-record-player">
+      <div class="record-container">
+        <!-- Corona de corazones -->
+        <div class="heart-ring">
+          <span>❤️</span>
+          <span>❤️</span>
+          <span>❤️</span>
+          <span>❤️</span>
+          <span>❤️</span>
+          <span>❤️</span>
+          <span>❤️</span>
+          <span>❤️</span>
+        </div>
+        <!-- Disco -->
+        <div class="record" id="record"></div>
+      </div>
+      <!-- Botón Play/Pause -->
+      <button class="btn-play" id="btnPlay">Play</button>
+      <!-- Audio (cambia "mi-audio.mp3" por tu archivo real) -->
+      <audio id="myAudio" src="Bendita Tu Luz  Maná  Letra  vietsub.mp3"></audio>
+    </div>
+    
+    <div class="love-message">
+      <p>Para la personita más especial, más linda, más increíble que he conocido…</p>
+      <p>Hoy no es un día cualquiera, hoy es el día en que el universo decidió regalarle al mundo a alguien tan increíble como tú. Veintiséis añitos, veintiséis años en los que has iluminado la vida de quienes tienen la suerte de conocerte, en los que has dejado huellas profundas con tu esencia, con tu risa que contagia, con esa mirada tuya que tiene algo especial, como si escondiera secretos del universo.</p>
+      <p>No sabes cuánto significa para mí poder desearte un feliz cumpleaños. No porque sea un simple saludo, sino porque realmente deseo que este día sea tan maravilloso como tú, que te rodees de amor, de risas, de momentos inolvidables. Que cada abrazo que recibas hoy te recuerde lo increíble que eres y cuánto vales. Joji, eres alguien que merece lo mejor de lo mejor. No solo hoy, sino siempre.</p>
+      <p>Si pudiera, pondría el mundo entero a tus pies, porque no hay palabras suficientes para describir cuánto me importas. Me encanta la persona que eres, lo fuerte, lo dulce, lo increíblemente única que eres. Y si de algo estoy seguro, es que el mundo es un lugar mejor desde que tú existes. Que este nuevo año de vida te traiga todo lo que deseas, que cada sueño tuyo se haga realidad, que cada día esté lleno de cosas buenas y que, pase lo que pase, siempre tengas motivos para sonreír.</p>
+    </div>
+  </section>
+  
+  <footer>
+    <p>Hecho con mucho amor. &copy; 2025</p>
+  </footer>
+  
+  <script>
+    // Reproducir/pausar el audio y girar el disco
+    const audio = document.getElementById("myAudio");
+    const record = document.getElementById("record");
+    const btnPlay = document.getElementById("btnPlay");
+    let isPlaying = false;
+
+    btnPlay.addEventListener("click", () => {
+      if (!isPlaying) {
+        audio.play();
+        record.style.animationPlayState = "running"; // inicia animación
+        btnPlay.textContent = "Pause";
+        isPlaying = true;
+      } else {
+        audio.pause();
+        record.style.animationPlayState = "paused"; // pausa animación
+        btnPlay.textContent = "Play";
+        isPlaying = false;
+      }
+    });
+
+    // Cuando el audio termine, detener animación y resetear botón
+    audio.addEventListener("ended", () => {
+      record.style.animationPlayState = "paused";
+      btnPlay.textContent = "Play";
+      isPlaying = false;
+    });
+
+    // Script para generar corazones flotantes
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      heart.innerText = '❤️';
+      document.body.appendChild(heart);
+      setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 800);
+  </script>
+</body>
+</html>
